@@ -9,87 +9,53 @@
           </div>
         </header>
       </div>
-      <div class="grid  max-w-7xl mx-auto  grid-cols-3 gap-10">
-          <div class="p-10">  
+       <div v-if="data.length > 0">
+      <div  class="grid  max-w-7xl mx-auto  grid-cols-3 gap-5">
+          <div v-for="d in data" :key="d.id" class="p-10">  
     <!--Card 1-->
-    <div class="max-w-sm rounded cursor-pointer bg-white overflow-hidden shadow-lg">
-      <img class="w-full" src="https://destinationdeluxe.com/wp-content/uploads/2021/06/Adventure-Activities-Destination-Deluxe.jpg" alt="Mountain">
+   
+ <div  class="max-w-sm rounded cursor-pointer bg-white overflow-hidden shadow-lg">
+      <img class="w-full" src="@/assets/img/2a.jpg" alt="">
       <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">Mountain</div>
-        <p class="text-gray-700 text-base">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.
-        </p>
+        <div class="font-bold text-xl mb-2">{{d.title}}</div>
+        <div>Created by: <span class="text-gray-500">{{d.creator.first_name}}</span></div>
       </div>
     </div>
-  </div>
-  <div class="p-10">  
-    <!--Card 1-->
-    <div class="max-w-sm rounded cursor-pointer bg-white overflow-hidden shadow-lg">
-      <img class="w-full" src="https://destinationdeluxe.com/wp-content/uploads/2021/06/Adventure-Activities-Destination-Deluxe.jpg" alt="Mountain">
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">Mountain</div>
-        <p class="text-gray-700 text-base">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.
-        </p>
-      </div>
     </div>
-  </div>
-  <div class="p-10">  
-    <!--Card 1-->
-    <div class="max-w-sm rounded cursor-pointer bg-white overflow-hidden shadow-lg">
-      <img class="w-full" src="https://destinationdeluxe.com/wp-content/uploads/2021/06/Adventure-Activities-Destination-Deluxe.jpg" alt="Mountain">
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">Mountain</div>
-        <p class="text-gray-700 text-base">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.
-        </p>
       </div>
+       </div>
+    <div v-else>
+        <h1 class="text-3xl text-white">No blog Content yet</h1>
     </div>
+   
   </div>
-  <div class="p-10">  
-    <!--Card 1-->
-    <div class="max-w-sm rounded cursor-pointer bg-white overflow-hidden shadow-lg">
-      <img class="w-full" src="https://destinationdeluxe.com/wp-content/uploads/2021/06/Adventure-Activities-Destination-Deluxe.jpg" alt="Mountain">
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">Mountain</div>
-        <p class="text-gray-700 text-base">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="p-10">  
-    <!--Card 1-->
-    <div class="max-w-sm rounded cursor-pointer bg-white overflow-hidden shadow-lg">
-      <img class="w-full" src="https://destinationdeluxe.com/wp-content/uploads/2021/06/Adventure-Activities-Destination-Deluxe.jpg" alt="Mountain">
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">Mountain</div>
-        <p class="text-gray-700 text-base">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="p-10">  
-    <!--Card 1-->
-    <div class="max-w-sm rounded cursor-pointer bg-white overflow-hidden shadow-lg">
-      <img class="w-full" src="https://destinationdeluxe.com/wp-content/uploads/2021/06/Adventure-Activities-Destination-Deluxe.jpg" alt="Mountain">
-      <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">Mountain</div>
-        <p class="text-gray-700 text-base">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.
-        </p>
-      </div>
-    </div>
-  </div>
-            </div>
-  </div>
+
 </template>
 
 <script>
 import DashboardHeader from '../components/DashboardHeader.vue'
 export default {
   components: { DashboardHeader },
+  data(){
+    return{
+      data: []
+    }
+  },
+  methods: {
+    async getBlog(){
+      try {
+     let res =  await this.$store.dispatch("auth/getBlog");
+      console.log("helo data", res.data.data)
+        this.data = res.data.data
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    },
+  
+  mounted(){
+    this.getBlog()
+  } 
 }
 </script>
 

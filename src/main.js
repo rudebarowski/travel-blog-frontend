@@ -4,23 +4,11 @@ import router from './router'
 import store from './store'
 import "@/assets/css/index.css"
 import { apiClient } from "@/services/api-client";
-
-
 Vue.config.productionTip = false
 
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 
-router.beforeEach((to, from, next) => {
-  if (localStorage.getItem("access_token")) {
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>")
-    let token = localStorage.getItem("access_token");
-    apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    console.log(apiClient.defaults.headers.common["Authorization"])
-  }
- 
-  next();
-});
 
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
@@ -32,6 +20,22 @@ Vue.use(Toast, {
   position: "top-center",
   transitionDuration: 300,
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth){
+    if (localStorage.getItem("access_token")) {
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>")
+      let token = localStorage.getItem("access_token");
+      apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      console.log(apiClient.defaults.headers.common["Authorization"])
+    }
+  }
+ 
+ 
+  next();
+});
+
+
 
 
 new Vue({

@@ -39,82 +39,25 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr v-for="data in data" :key="data.id">
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                           <div class="flex">
-                            <div class="flex-shrink-0 w-10 h-10">
-                              <img
-                                class="w-full h-full rounded-full"
-                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                alt=""
-                              />
-                            </div>
                             <div class="ml-3">
                               <p class="text-gray-900 whitespace-no-wrap">
-                                Molly Sanders
+                                {{data.first_name}} {{data.last_name}}
                               </p>
-                              <p class="text-gray-600 whitespace-no-wrap">000004</p>
+                              <p class="text-gray-600 whitespace-no-wrap">{{data.email}}</p>
                             </div>
                           </div>
                         </td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          <p class="text-gray-900 whitespace-no-wrap">Admin</p>
+                          <p class="text-gray-900 whitespace-no-wrap">{{data.role}}</p>
                         </td>
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          <p class="text-gray-900 whitespace-no-wrap">Sept 28, 2019</p>
+                          <p class="text-gray-900 whitespace-no-wrap">{{data.created_at}}</p>
                         </td>
                       </tr>
-                      <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          <div class="flex">
-                            <div class="flex-shrink-0 w-10 h-10">
-                              <img
-                                class="w-full h-full rounded-full"
-                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80
-"
-                                alt=""
-                              />
-                            </div>
-                            <div class="ml-3">
-                              <p class="text-gray-900 whitespace-no-wrap">
-                                Molly Sanders
-                              </p>
-                              <p class="text-gray-600 whitespace-no-wrap">000004</p>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          <p class="text-gray-900 whitespace-no-wrap">Admin</p>
-                        </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          <p class="text-gray-900 whitespace-no-wrap">Sept 28, 2019</p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          <div class="flex">
-                            <div class="flex-shrink-0 w-10 h-10">
-                              <img
-                                class="w-full h-full rounded-full"
-                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                alt=""
-                              />
-                            </div>
-                            <div class="ml-3">
-                              <p class="text-gray-900 whitespace-no-wrap">
-                                Molly Sanders
-                              </p>
-                              <p class="text-gray-600 whitespace-no-wrap">000004</p>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          <p class="text-gray-900 whitespace-no-wrap">Admin</p>
-                        </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                          <p class="text-gray-900 whitespace-no-wrap">Sept 28, 2019</p>
-                        </td>
-                      </tr>
+            
                     </tbody>
                   </table>
                 </div>
@@ -128,7 +71,26 @@
 import DashboardHeader from '../components/DashboardHeader.vue'
 export default {
   components: { DashboardHeader },
-
+data(){
+    return{
+      data: []
+    }
+  },
+  methods: {
+    async getUser(){
+      try {
+     let res =  await this.$store.dispatch("auth/getUser");
+      console.log("helo data", res.data.data)
+        this.data = res.data.data
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    },
+  
+  mounted(){
+    this.getUser()
+  } 
 }
 </script>
 

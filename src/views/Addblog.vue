@@ -8,18 +8,18 @@
           </div>
         </header>
       </div>
-  <form class="max-w-7xl mx-auto">
+  <form class="max-w-7xl mt-10 mx-auto">
               
                 <div class="shadow sm:rounded-md sm:overflow-hidden">
                   <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                     <div class="grid grid-cols-1 gap-6">
                         <div class="">
                           <label  class="block text-sm font-medium text-gray-700">Title</label>
-                          <input type="text" name="first-name" autocomplete="given-name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-3">
+                          <input v-model="blog_data.title" type="text" name="first-name" autocomplete="given-name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-3">
                         </div>                   
               <div class="mt-1">
                 <label  class="block text-sm font-medium text-gray-700">Content</label>
-                        <textarea id="about" name="about" rows="9" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 p-3 block w-full sm:text-sm border border-gray-300 rounded-md"></textarea>
+                        <textarea v-model="blog_data.content" id="about" name="about" rows="9" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 p-3 block w-full sm:text-sm border border-gray-300 rounded-md"></textarea>
                       </div>
                     </div>
 
@@ -52,9 +52,10 @@ export default {
          let data = await this.$store.dispatch("auth/addBlog", this.blog_data);
          console.log(data)
          this.$toast.success("successfully added blog post")
+         this.$router.push("/admin/blog")
         
       } catch (error) {
-                this.$toast.error("failed to update profile");
+                this.$toast.error("failed to add blog");
       }
     }
   }

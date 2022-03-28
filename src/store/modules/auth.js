@@ -12,7 +12,7 @@ export default {
 
     },
     actions: {
-        async login({commit}, payload){
+        async login(_, payload){
             try {
                 console.log("sjjsjs", payload)
                 let result = await apiClient.post("/auth/login", payload);
@@ -20,7 +20,6 @@ export default {
                 let token = result.data.data.jwtData.token
                 console.log("hello token", token)
                 localStorage.setItem("access_token", token)
-                await commit('setUser', payload.email)
                 console.log(result.data.data.jwtData.token)
                 
                 
@@ -37,12 +36,40 @@ export default {
                 throw error.response;   
             }
         },
-        async updateProfile(_, payload){
+        async addUser(_, payload){
             try{
-                let result = await apiClient.post("/user/edit", payload);
+                let result = await apiClient.post("/auth/registration", payload);
                 return result.data
             } catch (error) {
                 throw error.response;   
+            }
+        },
+        async updateProfile(_, payload){
+            try{
+                let result = await apiClient.put("/user/edit", payload);
+                return result.data
+            } catch (error) {
+                throw error.response;   
+            }
+        },
+        async getBlog(){
+            try {
+                let result = await apiClient.get("/blogs");
+                console.log(result)
+                return result.data
+                
+            } catch (error) {
+                throw error.response
+            }
+        },
+        async getUser(){
+            try {
+                let result = await apiClient.get("/user/all-user");
+                console.log(result)
+                return result.data
+                
+            } catch (error) {
+                throw error.response
             }
         },
         async getProfile(){

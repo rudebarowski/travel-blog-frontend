@@ -76,7 +76,7 @@ independent travel guides from fellow staff and students...</p>
       </div>
     </div>
     <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-      <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:min-h-full" src="@/assets/img/2a.jpg" alt="">
+      <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:min-h-full" src="@/assets/img/1a.jpg" alt="">
     </div>
   </div>
   </div>
