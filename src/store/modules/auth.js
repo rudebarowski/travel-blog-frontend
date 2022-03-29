@@ -15,6 +15,7 @@ export default {
         async login(_, payload){
             try {
                 console.log("sjjsjs", payload)
+                localStorage.removeItem("access_token");
                 let result = await apiClient.post("/auth/login", payload);
                 console.log("omo oh");
                 let token = result.data.data.jwtData.token
